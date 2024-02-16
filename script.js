@@ -5,7 +5,6 @@ import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
-import funt from 'three/examples/fonts/gentilis_regular.typeface.json'
 
 // Render Settings
 const sizes = {
@@ -27,7 +26,7 @@ camera.position.set(0, 0, 3)
 
 // Object
 new FontLoader().load(
-    funt,
+    'static/fonts/Bebas_Neue_Regular.json',
     (font) =>
     {
         const textGeometry = new TextGeometry(
@@ -45,22 +44,21 @@ new FontLoader().load(
             }
         )
 
-        scene.add(
-            new THREE.Mesh(
-                textGeometry,
-                new THREE.MeshToonMaterial({ color: 0xff0000 })
-            )
+        const mesh = new THREE.Mesh(
+            textGeometry,
+            new THREE.MeshToonMaterial({ color: 0xff0000 })
         )
 
-        // gsap.to(mesh.position, {
-        //     duration: 3,
-        //     delay: 0,
-        //     y: 1,
-        //     ease: "elastic.out(1, 0.3)",
-        //     repeat: -1,
-        //     yoyo: true,
-        //     yoyoEase: true
-        // })
+        scene.add(mesh)
+        gsap.to(mesh.position, {
+            duration: 3,
+            delay: 0,
+            y: 1,
+            ease: "elastic.out(1, 0.3)",
+            repeat: -1,
+            yoyo: true,
+            yoyoEase: true
+        })
     }
 )
 
@@ -71,9 +69,9 @@ const tick = () => {
     const now = Date.now()
     const deltaTime = clock.getElapsedTime()
 
-    pointLight.position.x = Math.sin( (now * 0.00025) * 7 ) * 50;
-	pointLight.position.y = Math.cos( (now * 0.00025) * 5 ) * 100;
-	pointLight.position.z = Math.cos( (now * 0.00025) * 3 ) * 50;
+    // pointLight.position.x = Math.sin( (now * 0.00025) * 7 ) * 50;
+	// pointLight.position.y = Math.cos( (now * 0.00025) * 5 ) * 100;
+	// pointLight.position.z = Math.cos( (now * 0.00025) * 3 ) * 50;
 
     controls.update()
     renderer.render(scene, camera)
